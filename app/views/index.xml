@@ -1,0 +1,32 @@
+<Alloy>
+	<Collection src="PeppaBook" />
+	
+	<Window class="container">
+        <NavigationGroup id="nav" platform="ios">
+            <Window id="win2" title="Peppa BookList" >
+            	
+ 			<RightNavButton  platform="ios">
+				<Button id="rightNavBtn" systemButton="Ti.UI.iPhone.SystemButton.REFRESH" onClick="refreshCollection"/>
+			</RightNavButton>
+
+ 			<LeftNavButton  platform="ios">
+				<Button id="leftNavBtn" style="Ti.UI.iPhone.SystemButtonStyle.DONE" title="Login" onClick="authenticateUser"/>
+			</LeftNavButton>
+
+           	<TableView id="bookList" bottom="45" dataCollection="PeppaBook" onClick="updateBook" onDelete="deleteBook">
+            		<TableViewRow title="{name}" pid="{pid}" oid="{oid}" hasChild='true'/>
+            	</TableView>
+            	
+      			<Toolbar platform="ios" bottom="0" borderTop="true" borderBottom="false">
+            		<Items>
+                		<Button id="createBtn" systemButton="Ti.UI.iPhone.SystemButton.ADD" onClick="addBook"/>
+               			<FlexSpace/>
+                		<Button id="deleteBtn" systemButton="Ti.UI.iPhone.SystemButton.TRASH" onClick="toggleDelete" />
+             		</Items>
+       			</Toolbar>
+            	
+            	
+            </Window>
+        </NavigationGroup>
+	</Window>
+</Alloy>

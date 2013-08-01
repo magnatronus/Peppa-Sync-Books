@@ -1,0 +1,5 @@
+<Alloy>
+	<Window id="addWin" title="Add PeppaBook" backgroundColor="black">
+		<Widget id="updateBook" src="bookRecord" onSave="bookUpdated" />	
+	</Window>
+</Alloy>

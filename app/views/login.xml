@@ -1,0 +1,12 @@
+<Alloy>
+	<Window id="loginWin" title="PeppaBooks Login" backgroundColor="black" modal="true">
+		
+		<ScrollView layout="vertical">
+			<ImageView  image="/peppabooks.png" top="10"/>
+			<TextField id="username" class="formTextField" hintText="username" />
+			<TextField id="password" class="formTextField" hintText="password"  passwordMask="*"/>
+			<Button id="loginBtn" class="formButton" title="Login" onClick="loginUser"/>
+		</ScrollView>
+		
+	</Window>
+</Alloy>

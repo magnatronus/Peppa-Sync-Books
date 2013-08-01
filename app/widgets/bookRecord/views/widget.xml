@@ -1,0 +1,9 @@
+<Alloy>
+	<ScrollView id="bookDetail" layout="vertical">
+		<TextField id="name" class="formTextField" hintText="title" />
+		<TextField id="isbn" class="formTextField" hintText="ISBN"/>
+		<TextField id="author" class="formTextField" hintText="author" />
+		<TextField id="genre" class="formTextField" hintText="genre"/>
+		<Button id="updateBtn" class="formButton" title="Done" onClick="updateBook"/>
+	</ScrollView>
+</Alloy>
