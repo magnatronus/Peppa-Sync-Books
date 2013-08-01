@@ -1,0 +1,9 @@
+#appname:Peppa-Sync-Books
+#appid:uk.co.spiralarm.peppa.books
+#type:mobile
+#guid:2b3bc89b-a0b4-49a6-9b1d-d4e076f092e8
+#version:1.0
+#publisher:SpiralArm Consulting Ltd
+#url:http://www.spiralarm.co.uk/peppa
+#image:appicon.png
+#desc:This is an example app that uses a custom sync module connected to the Peppa RSt API V2
