@@ -6,7 +6,7 @@
             <Window id="win2" title="Peppa BookList" >
             	
  			<RightNavButton  platform="ios">
-				<Button id="rightNavBtn" systemButton="Ti.UI.iPhone.SystemButton.REFRESH" onClick="refreshCollection"/>
+				<Button id="rightNavBtn" systemButton="Ti.UI.iPhone.SystemButton.REFRESH"  enabled="false" onClick="refreshCollection"/>
 			</RightNavButton>
 
  			<LeftNavButton  platform="ios">
@@ -19,9 +19,11 @@
             	
       			<Toolbar platform="ios" bottom="0" borderTop="true" borderBottom="false">
             		<Items>
-                		<Button id="createBtn" systemButton="Ti.UI.iPhone.SystemButton.ADD" onClick="addBook"/>
+                		<Button id="pwdBtn"  systemButton="Ti.UI.iPhone.SystemButton.EDIT" enabled="false" onClick="updatePwd"/>
                			<FlexSpace/>
-                		<Button id="deleteBtn" systemButton="Ti.UI.iPhone.SystemButton.TRASH" onClick="toggleDelete" />
+                		<Button id="createBtn" systemButton="Ti.UI.iPhone.SystemButton.ADD" enabled="false" onClick="addBook"/>
+               			<FlexSpace/>
+                		<Button id="deleteBtn" systemButton="Ti.UI.iPhone.SystemButton.TRASH" enabled="false" onClick="toggleDelete" />
              		</Items>
        			</Toolbar>
             	

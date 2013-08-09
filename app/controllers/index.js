@@ -32,14 +32,31 @@ function refreshCollection(e){
 	
 }
 
+// Allow the user to update their password
+function updatePwd(e){
+	var win = Alloy.createController('pwdUpdate').getView();
+	win.addEventListener('close', function(e){
+	});
+	win.open({modalTransitionStyle:Ti.UI.iPhone.MODAL_TRANSITION_STYLE_FLIP_HORIZONTAL, modalStyle:Ti.UI.iPhone.MODAL_PRESENTATION_FORMSHEET});
+	
+}
+
 // Log the user in  or Log them Out
 function checkUser(e){
 	
 	var sid = getSessionID();
 	if(sid){
-		$.leftNavBtn.title='Logout';		
+		$.leftNavBtn.title='Logout';
+		$.rightNavBtn.enabled = true;
+		$.pwdBtn.enabled = true;
+		$.createBtn.enabled = true;
+		$.deleteBtn.enabled = true;		
 	}
 	else{
+		$.rightNavBtn.enabled = false;
+		$.pwdBtn.enabled = false;
+		$.createBtn.enabled = false;
+		$.deleteBtn.enabled = false;		
 		$.leftNavBtn.title='Login';
 		books.reset();		
 	}
@@ -54,14 +71,11 @@ function authenticateUser(e){
 		if(users.length==1){
 			var user = users.at(0).destroy();
 		}
-		Ti.App.Properties.setString('peppa_sid', false);
 		checkUser();
 	}
 	else{
 		var win = Alloy.createController('login').getView();
 		win.addEventListener('close', function(e){
-			sid = checkUser();
-			Ti.App.Properties.setString('peppa_sid', sid);
 			refreshCollection();			
 		});
 		win.open({modalTransitionStyle:Ti.UI.iPhone.MODAL_TRANSITION_STYLE_FLIP_HORIZONTAL, modalStyle:Ti.UI.iPhone.MODAL_PRESENTATION_FORMSHEET});

@@ -5,12 +5,16 @@
  * 
  * this is an adaption of the rest adapter from the BookClient project
  * 
+ * 9 Aug 2013 
+ * - added user update so that the user password can be changed from the sync adapter
+ * - modified the way the user sessionid works, now internal to sync adapter
+ * 
  * Stephen Rogers
  * www.spiralarm.co.uk/peppa
  * @sarmcon
  */
 
-// This is the Session ID
+// Track the SessionID
 var SESSION_ID = false;
 
 // AI_KEY - set up in model
@@ -20,8 +24,8 @@ var API_KEY = '{PUT YOUR APIKEY HERE}';
 var API_VERSION = '2';
 
 // allows automatic selection of endpoint based on environment
-var PROD_URL = 'peppa.c2h4.co.uk';
-var DEMO_URL = 'peppa.c2h4.co.uk';
+var PROD_URL = 'this is where you can set the default endpoint';
+var DEMO_URL = 'this is where you can set the default endpoint';
 
 
 // Helper function to create our formatted URL
@@ -58,7 +62,7 @@ function createMethodURL(_method,_data,stringify){
 
 
 // helper function to generate our REST request
-function generateRESTRequest(method, url,payload, callback){
+function generateRESTRequest(method,url,payload,callback){
 
 
    var request = Ti.Network.createHTTPClient({
@@ -85,9 +89,13 @@ function generateRESTRequest(method, url,payload, callback){
         
     // now send the request
 	request.open(method,url);
-	request.setRequestHeader("X-PEPPA-SESSIONID",SESSION_ID);
 	request.setRequestHeader("X-PEPPA-API-KEY",API_KEY);
-
+	
+	// If sessionid defined put it in the header
+	if(SESSION_ID){
+		request.setRequestHeader("X-PEPPA-SESSIONID",SESSION_ID);
+	}
+	
 	// if we have a payload it should have a content typeof JSON
 	if(payload){
 		request.setRequestHeader("Content-Type","application/json");
@@ -117,6 +125,7 @@ function userSync(method, model, options){
 			var url = createMethodURL('user', payload);
 			generateRESTRequest('GET',url,null,function(success,res, error){
 				if(success) {
+					SESSION_ID = res.user[model.idAttribute];
 					options.success(res.user, JSON.stringify(res.user), options);
 				}
 				else{
@@ -144,11 +153,29 @@ function userSync(method, model, options){
 			});
 			break;
 		
+		// User password Update
+		case 'update':
+			var url = createMethodURL('user');
+			generateRESTRequest('PUT',url,payload,function(success,res, error){
+				if(success) {
+					options.success(res.user, JSON.stringify(res.user), options);
+				}
+				else{
+					var err = (res)?res.error:error;
+					Ti.API.error(err);
+					options.error(model, error, options);
+					model.trigger('error');
+				}
+			});
+		
+			break;
+
 		// User Logout
 		case 'delete': 
 			var url = createMethodURL('user/logout');
 			generateRESTRequest('GET',url,null,function(success,res, error){
 				if(success) {
+					SESSION_ID = false;
 					options.success(res, JSON.stringify(res), options);
 				}
 				else{
@@ -182,9 +209,6 @@ function objectSync(method, model, options, name){
 	
 	var payload = model.toJSON();
 	var error;
-
-	// Get the SessionId first
-	SESSION_ID = Ti.App.Properties.getString('peppa_sid', false);
 	
 	// if we have no sessionid don't bother with the call - waste of time as it WILL fail
 	if(!SESSION_ID){
@@ -311,15 +335,8 @@ module.exports.sync = function(method, model, options){
 // Perform some actions before creating the Model class
 module.exports.beforeModelCreate = function(config, name) {
 	
-
 	config = config || {};
 	
-	// is their a user session id defined
-	if(config.adapter.session_id){
-		SESSION_ID = config.adapter.session_id;
-		Ti.API.info('beforeModelCreate set Session ID: ' + SESSION_ID);
-	}
-
 	// is their an Application Key defined
 	if(config.adapter.api_key){
 		API_KEY = config.adapter.api_key;

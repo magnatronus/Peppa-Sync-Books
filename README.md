@@ -1,4 +1,6 @@
-Peppa-Sync-Harness
+Peppa-Sync-Books
+
+Aug 1st 2013
 
 This is an example Alloy application with a custom sync adapter to the Peppa REST API for Drupal 7
 The example os a database of books that are stored on  a Drupal server and accessed via mobile.
@@ -11,6 +13,12 @@ The API_KEY will need to be added to any model definitions that will use the syn
 
 If you want to connect it to the Peppa demo server then please send a request using the Contact Me page
 at www.spiralarm.co.uk
+
+
+Aug 9th Update
+
+Update added to the user model in the sync adapter . Done so user password can be updated from model.
+Also changed so that the required session is not stored as a Ti  App Property. The SESSION_ID is now internal to the sync adapter and set automatically when a user logs in.
 
 --------------------------------------------------------------------------
 Please note : 

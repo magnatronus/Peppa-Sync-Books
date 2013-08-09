@@ -14,7 +14,7 @@ exports.definition = {
 			prod_url: 'peppa.c2h4.co.uk',
 			demo_url: 'peppa.c2h4.co.uk',
 			api_version: '2',
-			api_key: '{you need an app key here}'
+			api_key: '{put api key here}'
 		}
 	},		
 	
@@ -29,7 +29,7 @@ exports.definition = {
 	
 	extendCollection: function(Collection) {		
 		_.extend(Collection.prototype, {
-			// extended functions and properties go here
+			// extended functions and properties go here			
 		});
 		
 		return Collection;

@@ -1,3 +1,4 @@
+var books = Alloy.Collections.PeppaBook;
 var users = Alloy.Collections.User;
 
 // lets use out user model and log the user in

@@ -1,0 +1,14 @@
+<Alloy>
+	<Window id="pwdWin" title="Change Password" backgroundColor="black" modal="true">
+		<LeftNavButton  platform="ios">
+			<Button id="leftNavBtn" systemButton="Ti.UI.iPhone.SystemButton.CANCEL" onClick="closeWin"/>
+		</LeftNavButton>
+
+		<ScrollView layout="vertical">
+			<ImageView  image="/peppabooks.png" top="10"/>
+			<TextField id="newPwd" class="formTextField" hintText=" new password"  passwordMask="*"/>
+			<Button id="updateBtn" class="formButton" title="Change" onClick="updatePwd"/>
+		</ScrollView>
+				
+	</Window>
+</Alloy>
